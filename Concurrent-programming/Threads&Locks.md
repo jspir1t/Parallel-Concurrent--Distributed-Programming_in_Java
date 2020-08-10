@@ -7,7 +7,9 @@ When an instance of Thread is created (via a *new* operation), it does not start
 The Thread class also includes a wait operation in the form of a join() method. If thread t0 performs a t1.join() call, thread t0 will be forced to wait until thread t1 completes, after which point it can safely access any values computed by thread t1.
 
 # Structured Locks (implicit Monitors Lock)
- A major benefit of structured locks is that their acquire and release operations are implicit, since these operations are automatically performed by the Java runtime environment when entering and exiting the scope of a **synchronized** statement or method, even if an exception is thrown in the middle.
+A major benefit of structured locks is that their acquire and release operations are implicit, since these operations are automatically performed by the Java runtime environment when entering and exiting the scope of a **synchronized** statement or method, even if an exception is thrown in the middle.  
+
+synchronized lock is also a kind of **re-entrant** Lock.
 ```java
 x = buffer();
 insert() {
@@ -34,11 +36,9 @@ remove() {
 ## [Unstructured Locks](https://docs.oracle.com/javase/7/docs/api/java/util/concurrent/locks/Lock.html)
 - hand-over-hand Locking:  
 implements a non-nested pairing of lock/unlock operations which cannot be achieved with synchronized statements/methods.  
-lock()  
-unlock()  
-    ```java
-    ReentrantLock(); // Java implementation
-    ```
+**Re-entrant Lock:(For single thread)**  
+A thread could get the same lock many times.(avoid DeadLock)  
+***A thread is executing a method with a lock, within which invoke another method that requires the same lock, the thread can directly execute the called method without reacquiring the lock.***
 
 -    tryLock(L1)
 
