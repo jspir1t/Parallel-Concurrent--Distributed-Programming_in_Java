@@ -84,7 +84,7 @@ public void computeBoruvka(final Queue<ParComponent> nodesLoaded, final Solution
         }
 
         final ParComponent other = e.getOther(loopNode);
-        if (!other.lock.tryLock()) {
+        if (other.isDead || !other.lock.tryLock()) {
             loopNode.lock.unlock();
             // if the other node cannot get lock, rolling back by add loopNode to the tail of queue 
             nodesLoaded.add(loopNode);
